@@ -1,0 +1,19 @@
+<!--
+list.html и detail.html наследуются от base.html и
+отображают список статей и подробности статьи соответственно
+-->
+
+{% extends "blog/base.html" %}
+{% block title %}My Blog{% endblock %}
+{% block content %}
+    <h1>Мой блог</h1>
+     <p>Это мой блог</p>
+    {% for post in posts %}
+        <h2>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </h2>
+        <p class="date">Опубликовано {{ post.publish }} пользователем {{ post.author }}</p>
+        {{ post.body|truncatewords:15|linebreaks }}
+    {% endfor %}
+{% include "pagination.html" with page=page_obj %}
+{% endblock %}
